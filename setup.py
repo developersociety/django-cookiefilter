@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='django-cookiefilter',
-    version='0.0',
+    version='0.1',
     description='Django Cookie Filter',
     long_description='Django Cookie Filter',
     url='https://github.com/developersociety/django-cookiefilter',
