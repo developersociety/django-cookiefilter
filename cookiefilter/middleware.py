@@ -1,0 +1,50 @@
+import logging
+from http.cookies import SimpleCookie
+
+from django.conf import settings
+from django.contrib.messages.storage.cookie import CookieStorage
+
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
+
+logger = logging.getLogger(__name__)
+
+
+class CookieFilterMiddleware(MiddlewareMixin):
+    """
+    Middleware which removes all unwanted cookies.
+
+
+    """
+    allowed_cookies = set(
+        getattr(
+            settings, 'COOKIEFILTER_ALLOWED', [
+                settings.CSRF_COOKIE_NAME,
+                settings.LANGUAGE_COOKIE_NAME,
+                settings.SESSION_COOKIE_NAME,
+                CookieStorage.cookie_name,
+            ]
+        )
+    )
+
+    def process_request(self, request):
+        current_cookies = set(request.COOKIES.keys())
+        unwanted_cookies = current_cookies.difference(self.allowed_cookies)
+
+        if unwanted_cookies:
+            wanted_cookies = current_cookies.intersection(self.allowed_cookies)
+
+            logger.debug('Deleted %d cookie(s)', len(unwanted_cookies))
+
+            request.COOKIES = {key: request.COOKIES[key] for key in wanted_cookies}
+
+            cookies = SimpleCookie(input=request.COOKIES)
+            cookie_string = cookies.output(header='', sep=';')
+            cookie_string = cookie_string.lstrip()
+
+            if cookie_string:
+                request.META['HTTP_COOKIE'] = cookie_string
+            else:
+                del request.META['HTTP_COOKIE']

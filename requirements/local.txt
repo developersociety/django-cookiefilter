@@ -1,0 +1,6 @@
+-r testing.txt
+
+bump2version==0.5.10
+Django>=2.1,<2.2
+tox==3.6.1
+twine==1.12.1
