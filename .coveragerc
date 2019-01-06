@@ -3,6 +3,3 @@ branch = true
 parallel = true
 include =
     cookiefilter/*
-
-[xml]
-output = reports/coverage.xml
