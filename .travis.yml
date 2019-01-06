@@ -23,7 +23,7 @@ script:
   - tox
 
 after_success:
-  - codecov
+  - codecov --env DJANGO
 
 stages:
   - lint
