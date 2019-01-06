@@ -8,5 +8,5 @@ build
 .tox/
 .coverage
 .coverage.*
+coverage.xml
 htmlcov/
-/reports/

@@ -132,7 +132,7 @@ coverage-xml:
 
 coverage-clean:
 	rm -rf htmlcov
-	rm -rf reports
+	rm -f coverage.xml
 	rm -f .coverage
 
 
