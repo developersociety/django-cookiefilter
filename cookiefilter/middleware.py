@@ -16,7 +16,8 @@ class CookieFilterMiddleware(MiddlewareMixin):
     """
     Middleware which removes all unwanted cookies.
 
-
+    By default standard Django cookies are allowed. This setting can be changed either in the
+    Django project settings, or by extending this class.
     """
     allowed_cookies = set(
         getattr(
