@@ -31,21 +31,28 @@ class CookieFilterMiddleware(MiddlewareMixin):
     )
 
     def process_request(self, request):
+        # First step - find out if there are any unwanted cookies being set
         current_cookies = set(request.COOKIES.keys())
         unwanted_cookies = current_cookies.difference(self.allowed_cookies)
 
         if unwanted_cookies:
+            # There are some unwanted cookies, so we create a new COOKIES dict containing only the
+            # cookies we want
             wanted_cookies = current_cookies.intersection(self.allowed_cookies)
 
             logger.debug('Deleted %d cookie(s)', len(unwanted_cookies))
 
             request.COOKIES = {key: request.COOKIES[key] for key in wanted_cookies}
 
+            # Other code in Django will inspect HTTP_COOKIES, so we need to recreate this as if the
+            # browser only sent these cookies in the first place
             cookies = SimpleCookie(input=request.COOKIES)
             cookie_string = cookies.output(header='', sep=';')
+            # cookies.output is usually for output headers, so we need to left strip whitespace
             cookie_string = cookie_string.lstrip()
 
             if cookie_string:
                 request.META['HTTP_COOKIE'] = cookie_string
             else:
+                # If there aren't any cookies left, then just remove the header
                 del request.META['HTTP_COOKIE']
