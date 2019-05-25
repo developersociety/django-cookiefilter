@@ -13,8 +13,8 @@ python:
 env:
   - DJANGO="1.8"
   - DJANGO="1.11"
-  - DJANGO="2.0"
   - DJANGO="2.1"
+  - DJANGO="2.2"
 
 install:
   - pip install codecov tox-travis
@@ -37,6 +37,8 @@ matrix:
       env: DJANGO="1.8"
     - python: 3.4
       env: DJANGO="2.1"
+    - python: 3.4
+      env: DJANGO="2.2"
 
 jobs:
   include:
