@@ -1,12 +1,20 @@
 #!/usr/bin/env python
+import os
+
 from setuptools import find_packages, setup
+
+
+def read(filename):
+    with open(os.path.join(os.path.dirname(__file__), filename)) as f:
+        return f.read()
 
 
 setup(
     name="django-cookiefilter",
     version="0.1",
     description="Django Cookie Filter",
-    long_description="Django Cookie Filter",
+    long_description=read("README.rst"),
+    long_description_content_type="text/x-rst",
     url="https://github.com/developersociety/django-cookiefilter",
     maintainer="The Developer Society",
     maintainer_email="studio@dev.ngo",
