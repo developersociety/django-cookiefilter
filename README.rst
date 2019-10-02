@@ -23,7 +23,7 @@ Edit your Django project's settings module, and add the middleware to the start 
 .. code-block:: python
 
     MIDDLEWARE = [
-        'cookiefilter.middleware.CookieFilterMiddleware',
+        "cookiefilter.middleware.CookieFilterMiddleware",
         # ...
     ]
 
@@ -42,7 +42,7 @@ project's settings module:
 .. code-block:: python
 
     COOKIEFILTER_ALLOWED = [
-        'analytics',
-        'csrftoken',
-        'sessionid',
+        "analytics",
+        "csrftoken",
+        "sessionid",
     ]
