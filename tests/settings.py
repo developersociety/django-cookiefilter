@@ -1,12 +1,5 @@
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
-    },
-}
+DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}}
 
-SECRET_KEY = 'cookiefilter'
+SECRET_KEY = "cookiefilter"
 
-INSTALLED_APPS = [
-    'cookiefilter',
-]
+INSTALLED_APPS = ["cookiefilter"]
