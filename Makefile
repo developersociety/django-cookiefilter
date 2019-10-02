@@ -32,10 +32,10 @@ check: ## Check for any obvious errors in the project's setup.
 check: pipdeptree-check
 
 format: ## Run this project's code formatters.
-format: yapf-format isort-format
+format: black-format isort-format
 
 lint: ## Lint the project.
-lint: yapf-lint isort-lint flake8-lint
+lint: black-lint isort-lint flake8-lint
 
 test: ## Run unit and integration tests.
 test: django-test
@@ -136,13 +136,12 @@ coverage-clean:
 	rm -f .coverage
 
 
-# YAPF
-yapf-lint:
-	yapf_lint_output="`yapf -r -p -d --style .style.yapf cookiefilter tests`" && \
-	if [[ $$yapf_lint_output ]]; then echo -e "$$yapf_lint_output"; exit 1; fi
+# Black
+black-lint:
+	black --line-length 99 --target-version py34 --exclude '/migrations/' --check cookiefilter tests setup.py
 
-yapf-format:
-	yapf -r -i -p --style .style.yapf cookiefilter tests
+black-format:
+	black --line-length 99 --target-version py34 --exclude '/migrations/' cookiefilter tests setup.py
 
 
 #pipdeptree
