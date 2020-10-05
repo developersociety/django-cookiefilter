@@ -11,7 +11,7 @@ SHELL=/bin/bash
 
 
 # -------------------------------
-# Common targets for Dev projects
+# Common targets for DEV projects
 # -------------------------------
 #
 # Edit these targets so they work as expected on the current project.
@@ -90,7 +90,7 @@ ifndef VIRTUAL_ENV
 endif
 
 venv-wipe: venv-check
-	if ! pip list --format=freeze | grep -v "^pip=\|^setuptools=\|^six=\|^wheel=" | xargs pip uninstall -y; then \
+	if ! pip list --format=freeze | grep -v "^pip=\|^setuptools=\|^wheel=" | xargs pip uninstall -y; then \
 	    echo "Nothing to remove"; \
 	fi
 
@@ -156,4 +156,4 @@ django-test:
 
 # Help
 help-display:
-	@awk '/^[[:alnum:]-]*: ##/ { split($$0, x, "##"); printf "%20s%s\n", x[1], x[2]; }' $(MAKEFILE_LIST)
+	@awk '/^[\-[:alnum:]]*: ##/ { split($$0, x, "##"); printf "%20s%s\n", x[1], x[2]; }' $(MAKEFILE_LIST)
