@@ -4,15 +4,10 @@ from http.cookies import SimpleCookie
 from django.conf import settings
 from django.contrib.messages.storage.cookie import CookieStorage
 
-try:
-    from django.utils.deprecation import MiddlewareMixin
-except ImportError:
-    MiddlewareMixin = object
-
 logger = logging.getLogger(__name__)
 
 
-class CookieFilterMiddleware(MiddlewareMixin):
+class CookieFilterMiddleware:
     """
     Middleware which removes all unwanted cookies.
 
@@ -33,7 +28,10 @@ class CookieFilterMiddleware(MiddlewareMixin):
         )
     )
 
-    def process_request(self, request):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
         # First step - find out if there are any unwanted cookies being set
         current_cookies = set(request.COOKIES.keys())
         unwanted_cookies = current_cookies.difference(self.allowed_cookies)
@@ -59,3 +57,7 @@ class CookieFilterMiddleware(MiddlewareMixin):
             else:
                 # If there aren't any cookies left, then just remove the header
                 del request.META["HTTP_COOKIE"]
+
+        # Now let remaining middleware or the view handle the request
+        response = self.get_response(request)
+        return response
