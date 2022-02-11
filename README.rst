@@ -44,5 +44,7 @@ project's settings module:
     COOKIEFILTER_ALLOWED = [
         "analytics",
         "csrftoken",
+        "django_language",
+        "messages",
         "sessionid",
     ]
