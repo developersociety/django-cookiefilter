@@ -17,8 +17,7 @@ Using pip_:
 
     $ pip install django-cookiefilter
 
-Edit your Django project's settings module, and add the middleware to the start of  ``MIDDLEWARE``
-(or ``MIDDLEWARE_CLASSES`` for Django 1.8):
+Edit your Django project's settings module, and add the middleware to the start of ``MIDDLEWARE``:
 
 .. code-block:: python
 
