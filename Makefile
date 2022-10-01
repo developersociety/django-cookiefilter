@@ -106,10 +106,10 @@ pip-install-local: venv-check
 
 # ISort
 isort-lint:
-	isort --recursive --check-only --diff cookiefilter tests
+	isort --check-only --diff cookiefilter tests
 
 isort-format:
-	isort --recursive cookiefilter tests
+	isort cookiefilter tests
 
 
 # Flake8
