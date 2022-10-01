@@ -138,10 +138,10 @@ coverage-clean:
 
 # Black
 black-lint:
-	black --line-length 99 --target-version py35 --exclude '/migrations/' --check cookiefilter tests setup.py
+	black --check cookiefilter tests setup.py
 
 black-format:
-	black --line-length 99 --target-version py35 --exclude '/migrations/' cookiefilter tests setup.py
+	black cookiefilter tests setup.py
 
 
 #pipdeptree
