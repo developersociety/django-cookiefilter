@@ -1,6 +1,6 @@
 -r testing.txt
 
 bump2version==1.0.1
-Django>=3.2,<4.0
+Django>=4.2,<5.0
 tox==4.6.0
 twine==4.0.2
