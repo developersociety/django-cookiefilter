@@ -22,7 +22,7 @@ setup(
     packages=find_packages(exclude=["tests"]),
     include_package_data=True,
     python_requires=">=3.7",
-    install_requires=["Django>=1.11"],
+    install_requires=["Django>=2.2"],
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
@@ -34,7 +34,6 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Framework :: Django",
-        "Framework :: Django :: 1.11",
         "Framework :: Django :: 2.2",
         "Framework :: Django :: 3.2",
     ],
