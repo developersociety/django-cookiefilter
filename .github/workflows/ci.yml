@@ -22,7 +22,7 @@ jobs:
         id: matrix
         run: |
           pip install $(grep "^tox==" requirements/local.txt)
-          echo "::set-output name=tox_matrix::$(tox -l | fgrep -v coverage | python .github/matrix.py)"
+          echo "tox_matrix=$(tox -l | fgrep -v coverage | python .github/matrix.py)" >> $GITHUB_OUTPUT
     outputs:
       tox_matrix: ${{ steps.matrix.outputs.tox_matrix }}
 
