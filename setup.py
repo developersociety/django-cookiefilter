@@ -11,7 +11,7 @@ def read(filename):
 
 setup(
     name="django-cookiefilter",
-    version="0.1",
+    version="1.0",
     description="Django Cookie Filter",
     long_description=read("README.rst"),
     long_description_content_type="text/x-rst",
