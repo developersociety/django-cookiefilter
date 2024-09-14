@@ -3,4 +3,5 @@
 bump2version==1.0.1
 Django>=4.2,<5.0
 tox==4.18.1
+tox-uv==1.11.3
 twine==5.1.1

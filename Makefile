@@ -43,6 +43,9 @@ test: django-test
 test-report: ## Run and report on unit and integration tests.
 test-report: coverage-clean test coverage-report
 
+test-lowest: ## Run tox with lowest (oldest) package dependencies.
+test-lowest: tox-test-lowest
+
 dist: ## Builds source and wheel package
 dist: clean build-dist
 
@@ -152,6 +155,9 @@ pipdeptree-check:
 # Project testing
 django-test:
 	PYTHONWARNINGS=all coverage run $$(which django-admin) test --pythonpath $$(pwd) --settings tests.settings tests
+
+tox-test-lowest:
+	tox --recreate --override testenv.uv_resolution=lowest
 
 
 # Help

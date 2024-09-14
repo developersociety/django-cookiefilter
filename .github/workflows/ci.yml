@@ -21,7 +21,7 @@ jobs:
       - name: Run tox
         id: matrix
         run: |
-          pip install $(grep "^tox==" requirements/local.txt)
+          pip install $(grep -E "^(tox|tox-uv)==" requirements/local.txt)
           echo "tox_matrix=$(tox -l | fgrep -v coverage | python .github/matrix.py)" >> $GITHUB_OUTPUT
     outputs:
       tox_matrix: ${{ steps.matrix.outputs.tox_matrix }}
@@ -47,5 +47,5 @@ jobs:
           cache-dependency-path: 'requirements/*.txt'
       - name: Run tests
         run: |
-          pip install $(grep "^tox==" requirements/local.txt)
+          pip install $(grep -E "^(tox|tox-uv)==" requirements/local.txt)
           tox -e ${{ matrix.tox_env }}
