@@ -25,7 +25,7 @@ def main():
             }
         )
 
-    print(json.dumps(actions_matrix))
+    print(json.dumps(actions_matrix))  # noqa:T201
 
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ class CookieFilterMiddleware:
     Django project settings, or by extending this class.
     """
 
-    allowed_cookies = set(
+    allowed_cookies = frozenset(
         getattr(
             settings,
             "COOKIEFILTER_ALLOWED",
@@ -59,5 +59,4 @@ class CookieFilterMiddleware:
                 del request.META["HTTP_COOKIE"]
 
         # Now let remaining middleware or the view handle the request
-        response = self.get_response(request)
-        return response
+        return self.get_response(request)

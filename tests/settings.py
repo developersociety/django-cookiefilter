@@ -2,6 +2,6 @@ DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memor
 
 USE_TZ = True
 
-SECRET_KEY = "cookiefilter"
+SECRET_KEY = "cookiefilter"  # noqa:S105
 
 INSTALLED_APPS = ["cookiefilter"]
