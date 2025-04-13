@@ -4,4 +4,3 @@ bump-my-version==1.1.2
 Django>=5.2,<6.0
 tox==4.25.0
 tox-uv==1.25.0
-twine==6.1.0
