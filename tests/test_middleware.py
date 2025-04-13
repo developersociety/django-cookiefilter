@@ -12,7 +12,7 @@ def get_response(request):
 class TestCookieFilterMiddleware(SimpleTestCase):
     def test_standard_cookies(self):
         middleware = CookieFilterMiddleware(get_response=get_response)
-        request = RequestFactory()
+        request = RequestFactory().get("/")
         request.COOKIES = {"analytics": "removed", "csrftoken": "token", "sessionid": "secret"}
         request.META = {"HTTP_COOKIE": ""}
 
@@ -25,7 +25,7 @@ class TestCookieFilterMiddleware(SimpleTestCase):
 
     def test_no_changes(self):
         middleware = CookieFilterMiddleware(get_response=get_response)
-        request = RequestFactory()
+        request = RequestFactory().get("/")
         request.COOKIES = {"csrftoken": "token"}
         request.META = {"HTTP_COOKIE": "unchanged"}
 
@@ -36,7 +36,7 @@ class TestCookieFilterMiddleware(SimpleTestCase):
 
     def test_all_cookies_removed(self):
         middleware = CookieFilterMiddleware(get_response=get_response)
-        request = RequestFactory()
+        request = RequestFactory().get("/")
         request.COOKIES = {"analytics": "removed"}
         request.META = {"HTTP_COOKIE": ""}
 
