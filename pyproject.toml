@@ -1,6 +1,6 @@
 [project]
 name = 'django-cookiefilter'
-version = '1.1'
+version = '1.2'
 description = 'Django Cookie Filter'
 readme = 'README.md'
 maintainers = [{ name = 'The Developer Society', email = 'studio@dev.ngo' }]
