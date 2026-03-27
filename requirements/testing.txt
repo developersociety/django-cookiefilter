@@ -1,6 +1,6 @@
-build==1.2.2.post1
-check-wheel-contents==0.6.1
-coverage==7.8.0
-pipdeptree==2.26.0
-ruff==0.11.5
-twine==6.1.0
+build==1.4.2
+check-wheel-contents==0.6.3
+coverage==7.13.5
+pipdeptree==2.34.0
+ruff==0.15.8
+twine==6.2.0
