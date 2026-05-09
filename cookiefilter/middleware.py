@@ -1,8 +1,11 @@
 import logging
+import warnings
+from functools import lru_cache
 from http.cookies import SimpleCookie
 
 from django.conf import settings
 from django.contrib.messages.storage.cookie import CookieStorage
+from django.utils.functional import classproperty
 
 logger = logging.getLogger(__name__)
 
@@ -15,18 +18,25 @@ class CookieFilterMiddleware:
     Django project settings, or by extending this class.
     """
 
-    allowed_cookies = frozenset(
-        getattr(
-            settings,
-            "COOKIEFILTER_ALLOWED",
-            [
-                settings.CSRF_COOKIE_NAME,
-                settings.LANGUAGE_COOKIE_NAME,
-                settings.SESSION_COOKIE_NAME,
-                CookieStorage.cookie_name,
-            ],
-        )
-    )
+    @classproperty
+    @lru_cache(maxsize=1)
+    def allowed_cookies(cls):
+        default_cookies = [
+            settings.CSRF_COOKIE_NAME,
+            settings.LANGUAGE_COOKIE_NAME,
+            settings.SESSION_COOKIE_NAME,
+            CookieStorage.cookie_name,
+        ]
+
+        if hasattr(settings, "COOKIEFILTER_ALLOWED"):
+            warnings.warn(
+                "COOKIEFILTER_ALLOWED is deprecated, use COOKIEFILTER_ALLOWED_NAMES instead",
+                DeprecationWarning,
+                stacklevel=1,
+            )
+            return frozenset(settings.COOKIEFILTER_ALLOWED)
+
+        return frozenset(getattr(settings, "COOKIEFILTER_ALLOWED_NAMES", default_cookies))
 
     def __init__(self, get_response):
         self.get_response = get_response

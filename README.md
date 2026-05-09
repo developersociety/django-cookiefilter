@@ -27,11 +27,11 @@ MIDDLEWARE = [
 ## Configuration
 
 Out of the box the standard Django cookie names will work without any other configuration. However
-if your project uses different or additional cookie names, edit ``COOKIEFILTER_ALLOWED`` in your
-project's settings module:
+if your project uses different or additional cookie names, edit ``COOKIEFILTER_ALLOWED_NAMES`` in
+your project's settings module:
 
 ```python
-COOKIEFILTER_ALLOWED = [
+COOKIEFILTER_ALLOWED_NAMES = [
     "analytics",
     "csrftoken",
     "django_language",
@@ -39,3 +39,7 @@ COOKIEFILTER_ALLOWED = [
     "sessionid",
 ]
 ```
+
+> [!NOTE]
+> This setting was previously named ``COOKIEFILTER_ALLOWED``, which is now deprecated and will be
+> removed in a future version.

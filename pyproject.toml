@@ -119,4 +119,7 @@ section-order = [
 'django' = ['django']
 
 [tool.ruff.lint.pep8-naming]
+classmethod-decorators = [
+  'django.utils.functional.classproperty',
+]
 extend-ignore-names = ['assert*']
