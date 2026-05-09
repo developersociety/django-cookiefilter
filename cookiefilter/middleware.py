@@ -1,4 +1,5 @@
 import logging
+import re
 import warnings
 from functools import lru_cache
 from http.cookies import SimpleCookie
@@ -38,6 +39,14 @@ class CookieFilterMiddleware:
 
         return frozenset(getattr(settings, "COOKIEFILTER_ALLOWED_NAMES", default_cookies))
 
+    @classproperty
+    @lru_cache(maxsize=1)
+    def allowed_patterns(cls):
+        return tuple(
+            re.compile(pattern)
+            for pattern in getattr(settings, "COOKIEFILTER_ALLOWED_PATTERNS", [])
+        )
+
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -46,10 +55,19 @@ class CookieFilterMiddleware:
         current_cookies = set(request.COOKIES.keys())
         unwanted_cookies = current_cookies.difference(self.allowed_cookies)
 
+        # Then we filter the unwanted list with allowed_patterns, for scenarios where multiple
+        # cookies are set
+        if unwanted_cookies and self.allowed_patterns:
+            unwanted_cookies = {
+                key
+                for key in unwanted_cookies
+                if not any(pattern.fullmatch(key) for pattern in self.allowed_patterns)
+            }
+
         if unwanted_cookies:
             # There are some unwanted cookies, so we create a new COOKIES dict containing only the
             # cookies we want
-            wanted_cookies = current_cookies.intersection(self.allowed_cookies)
+            wanted_cookies = current_cookies - unwanted_cookies
 
             logger.debug("Deleted %d cookie(s)", len(unwanted_cookies))
 

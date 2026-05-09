@@ -43,3 +43,12 @@ COOKIEFILTER_ALLOWED_NAMES = [
 > [!NOTE]
 > This setting was previously named ``COOKIEFILTER_ALLOWED``, which is now deprecated and will be
 > removed in a future version.
+
+Or if you need to allow multiple cookies that don't have specific names, you can add
+``COOKIEFILTER_ALLOWED_PATTERNS`` to allow additional cookie names with regular expressions:
+
+```python
+COOKIEFILTER_ALLOWED_PATTERNS = [
+    r"^abtesting-\d+-version$",
+]
+```
